@@ -128,11 +128,24 @@ ORDER BY  订单数 DESC  -- 降序
 
 -- 14.新建查询，查询哪几笔订单的购买的书籍种类大于3，显示订单号,客户号和书籍种类数。将查询语句保存为sj13.sql。
 -- sj13.sql 
+select tOrder.订单号,客户号,count(书籍号) as 书籍种类数 from tDetail,tOrder
+where tOrder.订单号=tDetail.订单号
+group by tOrder.客户号,tOrder.订单号
+having COUNT(书籍号)>3
 
+-- 15.新建查询，查询按出生日期月份的升序显示名称为2个字雇员的姓名、性别、职称和出生日期的月份。将查询语句保存为sj14.sql。
+-- sjl4.sql
+select 姓名,性别,职务,month(出生日期) as 出生日期的月份 from tEmployee
+where 姓名 like '__'
+order by MONTH(出生日期) asc
 
-15.新建查询，查询按出生日期月份的升序显示名称为2个字雇员的姓名、性别、职称和出生日期的月份。将查询语句保存为sj14.sql。
-
-16.新建查询，查询每笔订单的订单号、客户号、雇员名称、书籍名称和总价,并按订单号升序排列。将查询语句保存为sj15.sql。
+-- 16.新建查询，查询每笔订单的订单号、客户号、雇员名称、书籍名称和总价,并按订单号升序排列。将查询语句保存为sj15.sql。
+-- sjl5.sql
+select tDetail.订单号,客户号,姓名 as 雇员名称,书籍名称,售出单价*数量 as 总价 from tBook,tOrder,tEmployee,tDetail
+where tDetail.订单号=tOrder.订单号
+and tBook.书籍号=tDetail.书籍号
+and tEmployee.雇员号=tOrder.雇员号
+order by tDetail.订单号 
 ```
 
 最后将文件夹sql压缩上传。
